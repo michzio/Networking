@@ -8,12 +8,12 @@
 import Foundation
 
 public struct FileUploadInfo {
-    let name : String
-    let mime : String
-    let data: Data
-    let param: String
+    public let name : String
+    public let mime : String
+    public let data: Data
+    public let param: String
     
-    init(data: Data, name : String = "image.png", mime : String = "image/png", param : String = "file") {
+    public init(data: Data, name : String = "image.png", mime : String = "image/png", param : String = "file") {
         self.data = data
         self.name = name
         self.mime = mime

@@ -11,7 +11,7 @@ import Foundation
 // MARK: - URLRequest factory method
 public extension Requestable where Self: IRouter {
     
-    public func asURLRequest() throws -> URLRequest {
+    func asURLRequest() throws -> URLRequest {
         
         var baseUrlString = Self.baseURL
         
