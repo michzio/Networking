@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol INetworkLogger {
+public protocol INetworkLogger {
     
     func log(request: URLRequest)
     func log(response: URLResponse?, data: Data?)

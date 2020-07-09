@@ -9,17 +9,16 @@
 import Foundation
 import Combine
 
-protocol IDecoder: TopLevelDecoder where Input == Data { }
-
+public protocol IDecoder: TopLevelDecoder where Input == Data { }
 extension JSONDecoder: IDecoder { }
 
-class BaseService<D: IDecoder> {
+public class BaseService<D: IDecoder> {
     
     private let session: URLSession
     private let decoder: D
     private let logger: INetworkLogger
     
-    init(session: URLSession = .shared,
+    public init(session: URLSession = .shared,
          logger: INetworkLogger = NetworkLogger(),
          decoder: D) {
         self.session = session
@@ -147,8 +146,6 @@ class BaseService<D: IDecoder> {
         }
     }
 }
-
-let service = BaseService(decoder: JSONDecoder())
 
 extension URLResponse {
     
