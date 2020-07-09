@@ -12,7 +12,7 @@ import Combine
 public protocol IDecoder: TopLevelDecoder where Input == Data { }
 extension JSONDecoder: IDecoder { }
 
-public class BaseService<D: IDecoder> {
+open class BaseService<D: IDecoder> {
     
     private let session: URLSession
     private let decoder: D
@@ -26,7 +26,7 @@ public class BaseService<D: IDecoder> {
         self.logger = logger 
     }
     
-    func request<T>(_ requestable: Requestable) -> AnyPublisher<T, Error> where T: Decodable {
+    public func request<T>(_ requestable: Requestable) -> AnyPublisher<T, Error> where T: Decodable {
         
         do {
             return try _request(requestable)
@@ -52,7 +52,7 @@ public class BaseService<D: IDecoder> {
         }
     }
     
-    func request(_ requestable: Requestable) -> AnyPublisher<Data, Error> {
+    public func request(_ requestable: Requestable) -> AnyPublisher<Data, Error> {
         
         do {
             return try _request(requestable)
@@ -95,7 +95,7 @@ public class BaseService<D: IDecoder> {
             .eraseToAnyPublisher()
     }
     
-    func decode<T: Decodable>(_ output: URLSession.DataTaskPublisher.Output) -> AnyPublisher<T, Error> {
+    private func decode<T: Decodable>(_ output: URLSession.DataTaskPublisher.Output) -> AnyPublisher<T, Error> {
         
         switch output.response.contentType?.components(separatedBy: ";").first {
         case "application/json":
@@ -128,7 +128,7 @@ public class BaseService<D: IDecoder> {
         }
     }
     
-    func decodeError(from output: URLSession.DataTaskPublisher.Output) -> ApiError? {
+    private func decodeError(from output: URLSession.DataTaskPublisher.Output) -> ApiError? {
         
         switch output.response.contentType {
         case "application/json":
