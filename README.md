@@ -73,3 +73,22 @@ enum Router: IRouter {
     static var mockUploadFile: FileUploadInfo? = nil
 }
 ```
+An example implementation of BaseService 
+
+```
+import Networking
+
+protocol IProfileService {
+    
+    func getProfile() -> AnyPublisher<ProfileDTO, Error>
+}
+
+class ProfileService: BaseService, IProfileService {
+   
+    
+    func getProfile() -> AnyPublisher<ProfileDTO, Error> {
+        
+        request(Router.profile)
+    }
+}
+```
