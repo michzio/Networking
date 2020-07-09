@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: Multipart Form Data factory method
-extension IRouter {
+extension IRouter where Self: Requestable, Self: Encoder {
     
     func multipartFormData() -> Data? {
         

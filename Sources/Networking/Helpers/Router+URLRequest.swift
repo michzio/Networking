@@ -14,7 +14,7 @@ public enum Authorization {
     case queryParams(_ params: [String:Any])
 }
 
-public protocol IRouter : Requestable, Encoder {
+public protocol IRouter {
     
     static var baseURL: String { get }
     
@@ -37,7 +37,7 @@ public protocol IRouter : Requestable, Encoder {
 }
 
 // MARK: - URLRequest factory method
-extension IRouter  {
+extension IRouter where Self : Requestable, Self: Encoder {
     
     func asURLRequest() throws -> URLRequest {
         
