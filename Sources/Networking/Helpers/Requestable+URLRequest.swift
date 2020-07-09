@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - URLRequest factory method
-public extension IRouter {
+public extension Requestable where Self: IRouter {
     
     func asURLRequest() throws -> URLRequest {
         
