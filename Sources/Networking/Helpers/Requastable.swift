@@ -11,9 +11,4 @@ import Foundation
 public protocol Requestable {
     
     func asURLRequest() throws -> URLRequest
-    func multipartFormData() throws -> Data?
-}
-
-public extension Requestable {
-    func multipartFormData() throws -> Data? { return nil }
 }

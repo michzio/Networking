@@ -13,7 +13,7 @@ public enum Authorization {
     case queryParams(_ params: [String:Any])
 }
 
-public protocol IRouter: Requestable, Encoder {
+public protocol IRouter: Requestable, MultipartUploading, Encoder {
     
     static var baseURL: String { get }
     

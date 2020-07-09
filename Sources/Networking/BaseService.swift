@@ -9,6 +9,30 @@
 import Foundation
 import Combine
 
+enum HSHSHS: IRouter {
+    static var baseURL: String = ""
+    
+    var path: String { "" }
+    
+    var isFullPath: Bool { false }
+    
+    var method: HTTPMethod { .post }
+    
+    var headerParams: [String : String] { [:] }
+    
+    var authorization: Authorization { .noAuth }
+    
+    var queryParams: [String : Any] { [:] }
+    
+    var bodyParams: [String : Any] { [:] }
+    
+    var bodyEncoding: EncodingType { .formData }
+    
+    var files: [FileUploadInfo]? { nil }
+    
+    
+}
+
 protocol IDecoder: TopLevelDecoder where Input == Data { }
 
 extension JSONDecoder: IDecoder { }
