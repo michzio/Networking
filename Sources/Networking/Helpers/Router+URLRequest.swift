@@ -37,7 +37,7 @@ public protocol IRouter: Requestable, Encoder {
 }
 
 // MARK: - URLRequest factory method
-public extension IRouter {
+public extension IRouter where Self: Requestable, Self: Encoder {
     
     func asURLRequest() throws -> URLRequest {
         
