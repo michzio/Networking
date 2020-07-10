@@ -83,7 +83,7 @@ protocol IProfileService {
     func getProfile() -> AnyPublisher<ProfileDTO, Error>
 }
 
-class ProfileService: BaseService, IProfileService {
+class ProfileService: BaseService<JSONDecoder>, IProfileService {
    
     
     func getProfile() -> AnyPublisher<ProfileDTO, Error> {

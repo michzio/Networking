@@ -25,7 +25,7 @@ extension NetworkError : Identifiable {
 }
 
 // MARK: - Describable Error
-protocol DescribableError {
+public protocol DescribableError {
     
     var errorMessage: String? { get }
 }
