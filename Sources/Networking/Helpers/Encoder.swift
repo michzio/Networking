@@ -9,11 +9,11 @@
 import Foundation
 
 public enum EncodingType {
-       case jsonSerialization
-       case stringAscii
-       case formData
-       case multipart(boundary: String)
-   }
+    case jsonSerialization
+    case stringAscii
+    case formData
+    case multipart(boundary: String)
+}
 
 public protocol Encoder {
     
@@ -23,35 +23,35 @@ public protocol Encoder {
 extension Encoder {
     
     public func encoded(_ params: [String:Any], encoding: EncodingType) -> Data? {
-           switch encoding {
-           case .jsonSerialization:
-               return try? JSONSerialization.data(withJSONObject: params)
-           case .formData:
-                return Data(query(params).utf8)
-           case .stringAscii:
-               return params.queryString.data(using: String.Encoding.ascii, allowLossyConversion: true)
-           case .multipart(let boundary):
+        switch encoding {
+        case .jsonSerialization:
+            return try? JSONSerialization.data(withJSONObject: params)
+        case .formData:
+            return Data(query(params).utf8)
+        case .stringAscii:
+            return params.queryString.data(using: String.Encoding.ascii, allowLossyConversion: true)
+        case .multipart(let boundary):
             
-                var components: [(String, String)] = []
+            var components: [(String, String)] = []
 
-                for key in params.keys.sorted(by: <) {
-                    let value = params[key]!
-                    components += queryComponents(fromKey: key, value: value)
-                }
-                
-                var data = Data()
-                
-                components.forEach { (key, value) in
-                    let key = key.replacingOccurrences(of: "%5B%5D", with: "")
-                    
-                    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-                    data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-                    data.append("\(value)".data(using: .utf8)!)
-                }
-                
-                return data
-           }
-       }
+            for key in params.keys.sorted(by: <) {
+                let value = params[key]!
+                components += queryComponents(fromKey: key, value: value)
+            }
+
+            var data = Data()
+
+            components.forEach { (key, value) in
+                let key = key.replacingOccurrences(of: "%5B%5D", with: "")
+
+                data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+                data.append("\(value)".data(using: .utf8)!)
+            }
+
+            return data
+        }
+    }
 }
 
 extension Encoder {
@@ -119,34 +119,34 @@ extension NSNumber {
 
 /// Configures how `Bool` parameters are encoded.
 fileprivate enum BoolEncoding {
-       /// Encode `true` as `1` and `false` as `0`. This is the default behavior.
-       case numeric
-       /// Encode `true` and `false` as string literals.
-       case literal
+    /// Encode `true` as `1` and `false` as `0`. This is the default behavior.
+    case numeric
+    /// Encode `true` and `false` as string literals.
+    case literal
 
-       func encode(value: Bool) -> String {
-           switch self {
-           case .numeric:
-               return value ? "1" : "0"
-           case .literal:
-               return value ? "true" : "false"
-           }
-       }
-   }
-   
+    func encode(value: Bool) -> String {
+        switch self {
+        case .numeric:
+            return value ? "1" : "0"
+        case .literal:
+            return value ? "true" : "false"
+        }
+    }
+}
+
 /// Configures how `Array` parameters are encoded.
 fileprivate enum ArrayEncoding {
-          /// An empty set of square brackets is appended to the key for every value. This is the default behavior.
-          case brackets
-          /// No brackets are appended. The key is encoded as is.
-          case noBrackets
+    /// An empty set of square brackets is appended to the key for every value. This is the default behavior.
+    case brackets
+    /// No brackets are appended. The key is encoded as is.
+    case noBrackets
 
-          func encode(key: String) -> String {
-              switch self {
-              case .brackets:
-                  return "\(key)[]"
-              case .noBrackets:
-                  return key
-              }
-          }
-      }
+    func encode(key: String) -> String {
+        switch self {
+        case .brackets:
+            return "\(key)[]"
+        case .noBrackets:
+            return key
+        }
+    }
+}

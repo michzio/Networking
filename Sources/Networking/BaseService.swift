@@ -18,9 +18,7 @@ open class BaseService<D: IDecoder> {
     private let decoder: D
     private let logger: INetworkLogger
     
-    public init(session: URLSession = .shared,
-         logger: INetworkLogger = NetworkLogger(),
-         decoder: D) {
+    public init(session: URLSession = .shared, logger: INetworkLogger = NetworkLogger(), decoder: D) {
         self.session = session
         self.decoder = decoder
         self.logger = logger 
