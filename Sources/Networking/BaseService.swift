@@ -144,10 +144,3 @@ open class BaseService<D: IDecoder> {
         }
     }
 }
-
-extension URLResponse {
-    
-    var contentType: String? {
-        return (self as? HTTPURLResponse)?.allHeaderFields["Content-Type"] as? String
-    }
-}

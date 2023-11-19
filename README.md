@@ -85,9 +85,26 @@ protocol IProfileService {
 
 class ProfileService: BaseService<JSONDecoder>, IProfileService {
    
-    
     func getProfile() -> AnyPublisher<ProfileDTO, Error> {
         
+        request(Router.profile)
+    }
+}
+```
+
+An example implementation of AsyncBaseService 
+
+```
+import Networking
+
+protocol IProfileService {
+    
+    func getProfile() async throws -> ProfileDTO
+}
+
+class ProfileService: AsyncBaseService<JSONDecoder>, IProfileService {
+   
+    func getProfile() async throws -> ProfileDTO{
         request(Router.profile)
     }
 }
